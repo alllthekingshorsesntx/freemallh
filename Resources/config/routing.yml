@@ -1,0 +1,31 @@
+zendesk_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ZendeskBundle:Default:index }
+
+zendesk_homepage:
+    pattern:  /user/view/{name}/{email}
+    defaults: { _controller: ZendeskBundle:Default:accessUser }
+    
+zendesk_user_tickets:
+    pattern:  /user/tickets/{userId}
+    defaults: { _controller: ZendeskBundle:Default:userTickets }
+    
+zendesk_user_ticket_create:
+    pattern:  /user/tickets/{userId}/create
+    defaults: { _controller: ZendeskBundle:Default:createTicket }
+
+zendesk_add_comment:
+    pattern:  /ticket/{ticket}/comment
+    defaults: { _controller: ZendeskBundle:Default:addComment }
+    
+zendesk_add_collab:
+    pattern:  /ticket/{ticket}/collab
+    defaults: { _controller: ZendeskBundle:Default:addCollaborator }
+    
+zendesk_ticket:
+    pattern: /ticket/{ticket}
+    defaults: { _controller: ZendeskBundle:Default:viewTicket }
+
+zendesk_old_tickets:
+    pattern: /opentickets/untouchedsince/{unixtime}
+    defaults: { _controller: ZendeskBundle:Default:untouchedTickets }

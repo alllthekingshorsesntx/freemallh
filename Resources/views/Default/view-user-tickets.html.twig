@@ -1,0 +1,15 @@
+<h1>Tickets for {{user.name}}</h1>
+{% if not tickets %}
+No tickets for this user.
+{% endif %}
+<form method="POST" name="comment" action="{{path( 'zendesk_user_ticket_create', { 'userId': user.id } )}}">
+	<label for="subject">Subject (required)</label><br>
+	<input type="text" name="subject">Subject</input><br>
+	<label for="comment">Comment (required)</label><br>
+	<textarea name="comment"></textarea><br>
+	<input type="submit" />
+</form>
+<h2>Tickets</h2>
+{% for ticket in tickets %}
+{{ticket|raw}}
+{% endfor %}
