@@ -1,0 +1,69 @@
+<table>
+{% for key, value in ticket.toArray.ticket %}
+	<tr>
+		<td>{{key}}</td>
+		<td>{{value}}</td>
+	</tr>
+{% endfor %}
+        <tr>
+                <td colspan="2">
+                <form method="POST" name="group" action="{{path('zendesk_change_group')}}">
+                <input type="hidden" name="ticketId" value="{{ticket.id}}">
+                <select name="groupId">
+                {% for group in groups %}
+                <option value="{{group.id}}" {% if group.id == ticket.group_id %}selected {% endif %}>{{group.name}}</option>
+                {% endfor %}
+                </select>
+                <input type="submit"></input>
+                </form>
+                </td>
+        </tr>
+        <tr>
+                <td colspan="2"><b>Collaborator Ids</b></td>
+        </tr>
+        <tr>
+                <td colspan="2">
+                {% for collabid in ticket.toArray.ticket.collaborator_ids %}
+                    {{collabid}} 
+               {% endfor %}
+                </td>
+        </tr>
+        <tr>
+             <td colspan="2">
+                 <b>Add Collaborator</b>
+                 <form method="POST" name="collab" action="{{path('zendesk_add_collab', {'ticket':ticket.toArray.ticket.id})}}">
+                     <input type="hidden" name="ticketId" value="{{ticket.id}}" />
+                     <label for="email">Email:</label>
+                     <input type="text" name="email"></input>
+                     <label for="name">Name:</label>
+                     <input type="text" name="name"></input>
+                     <input type="submit"></input>
+                 </form>
+             </td>
+        </tr>
+	<tr>
+		<td colspan="2"><b>Comments</b></td>
+	</tr>
+	{% for comment in ticket.comments %}
+	<tr>
+		<td>{{comment.id}} 
+			{% if comment.isPublic %}
+			Public
+			{% else %}
+			Private
+			{% endif %}
+		</td>
+		<td>{{comment}}</td>
+	</tr>
+	{% endfor %}
+	<tr>
+		<td colspan="2">
+			<form method="POST" name="comment" action="{{ path( 'zendesk_add_comment', {'ticket':ticket.id} ) }}">
+				<textarea name="comment"></textarea>
+				<input type="hidden" name="ticketId" value="{{ticket.id}}" />
+				<label for="public">Public:</label>
+				<input type="checkbox" name="public" checked="checked" />
+				<input type="submit" />
+			</form>
+		</td>
+</table>
